@@ -44,7 +44,7 @@ export default function Sidebar({ onSelect, sidebarOpen, pathname }: SidebarProp
         </div>
         
         {/* Sidebar Content */}
-        <div className="flex flex-col gap-2 justify-center w-2/6 mx-auto lg:w-full">
+        <div className="flex flex-col gap-2 justify-center mx-auto">
             {sidebarItems.map(({ title, path, icon: Icon }) => (
               title !== "Cerrar Sesión" ? 
               (
@@ -62,7 +62,7 @@ export default function Sidebar({ onSelect, sidebarOpen, pathname }: SidebarProp
         </div>
 
          {/* footer content */}   
-          <div className="flex justify-center w-2/6 mx-auto lg:w-full">
+          <div className="flex justify-center mx-auto">
                <Link href="/" onClick={handleSignOut} className="flex justify-center bg-red-300 text-red-600 font-bold py-2 px-6 rounded-xl w-full">Cerrar Sesión</Link>
           </div>
     </aside>
