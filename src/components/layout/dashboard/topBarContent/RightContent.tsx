@@ -18,11 +18,11 @@ export default function RightContent({pathname}: {pathname?: string}) {
 
   if (pathname == "/dashboard") 
   return (
-    <div className='flex gap-4'>
-        <Button className='bg-amber-600 hover:bg-amber-600/90 cursor-pointer'>Barquisimeto</Button>
-        <Button className='bg-blue-600 hover:bg-blue-600/90 cursor-pointer'>Portuguesa</Button>
-        <Button className='bg-green-600 hover:bg-green-600/90 cursor-pointer'>Trujillo</Button>
-        <Button className='bg-red-600 hover:bg-red-600/90 cursor-pointer'>Caracas</Button>
+    <div className='gap-4 hidden lg:flex'>
+        <Button className='bg-yellow-600/40 text-yellow-600 hover:bg-yellow-600/50 cursor-pointer'>Barquisimeto</Button>
+        <Button className='bg-blue-300 text-blue-600 hover:bg-blue-600/40 cursor-pointer'>Portuguesa</Button>
+        <Button className='bg-purple-300 text-purple-600 hover:bg-purple-600/40 cursor-pointer'>Trujillo</Button>
+        <Button className='bg-green-300 text-green-600 hover:bg-green-600/40 cursor-pointer'>Caracas</Button>
     </div>
   )
     
@@ -43,4 +43,5 @@ export default function RightContent({pathname}: {pathname?: string}) {
         </div>
     </div>
   )
+
 }
