@@ -4,25 +4,29 @@ import { AuthMode, AuthStep, AuthFormData } from "@/app/types/Auth"
 import Email from "@/components/layout/auth/Email"
 import Password from "@/components/layout/auth/Password"
 import {Button} from "@/components/ui/button"
+import { supabase } from '@/lib/supabaseClient'
+import { useRouter } from 'next/navigation'
 
     export default function AuthContent() {
     const [mode, setMode] = useState<AuthMode>("login")
     const [step, setStep] = useState<AuthStep>(1)
-    const [email, setEmail] = useState<string>("")
-    const [password, setPassword] = useState<string>("")
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [authFormData, setAuthFormData] = useState<AuthFormData>({
+        email: "",
+        password: ""
+    })
+    const router = useRouter()
 
     
     const toggleMode = (): void => {
         setMode(mode === "login" ? "register" : "login")
         setStep(1)
-        setEmail("")
-        setPassword("")
+        setAuthFormData({ email: "", password: "" })
     }
 
     const handleNextStep = (e: FormEvent<HTMLFormElement>): void => {
         e.preventDefault()
-        if (step === 1 && isValidEmail(email)) {
+        if (step === 1 && isValidEmail(authFormData.email)) {
         setStep(2)
         }
     }
@@ -32,11 +36,11 @@ import {Button} from "@/components/ui/button"
     }
 
     const handleEmailChange = (e: ChangeEvent<HTMLInputElement>): void => {
-        setEmail(e.target.value)
+        setAuthFormData({ ...authFormData, email: e.target.value})
     }
 
     const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>): void => {
-        setPassword(e.target.value)
+        setAuthFormData({ ...authFormData, password: e.target.value})
     }
 
     const isValidEmail = (email: string): boolean => {
@@ -69,14 +73,32 @@ import {Button} from "@/components/ui/button"
         e.preventDefault()
         setIsLoading(true)
 
-        const formData: AuthFormData = { email, password }
-
         try {
-        alert(`Estos son los datos: ${formData.email} y ${formData.password}`)
+
+        if (mode === "login") {
+            const { data, error } = await supabase.auth.signInWithPassword({
+            email: authFormData.email,
+            password: authFormData.password,
+            })
+            if (error) throw error
+
+            router.push('/dashboard')
+            
+
+        } else {
+            const { data, error } = await supabase.auth.signUp({
+            email: authFormData.email,
+            password: authFormData.password,
+            })
+            if (error) throw error
+            
+            router.push('/dashboard')
+        }
         } catch (error) {
         console.error("Auth error:", error)
         } finally {
-        setIsLoading(false)
+
+            setIsLoading(false)
         }
     }
     return (
@@ -98,7 +120,7 @@ import {Button} from "@/components/ui/button"
                 <Email 
                 handleNextStep={handleNextStep} 
                 handleEmailChange={handleEmailChange} 
-                email={email} 
+                email={authFormData.email} 
                 isValidEmail={isValidEmail}/>
             )}
     
@@ -107,8 +129,7 @@ import {Button} from "@/components/ui/button"
                 <Password  
                 handlePrevStep={handlePrevStep}
                 handlePasswordChange={handlePasswordChange}
-                password={password} 
-                email={email} 
+                password={authFormData.password} 
                 isLoading={isLoading} 
                 mode={mode}
                 handleSubmit={handleSubmit} 

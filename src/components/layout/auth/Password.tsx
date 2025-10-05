@@ -8,14 +8,13 @@ type PasswordProps = {
   handlePrevStep: () => void
   handlePasswordChange: (e: ChangeEvent<HTMLInputElement>) => void 
   password: string
-  email: string
   isLoading: boolean
   mode: AuthMode
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void
   getSubmitButtonText: () => string
 }
 
-export default function password({handlePrevStep, handlePasswordChange, password, email, isLoading, mode, handleSubmit, getSubmitButtonText}: PasswordProps) {
+export default function password({handlePrevStep, handlePasswordChange, password, isLoading, mode, handleSubmit, getSubmitButtonText}: PasswordProps) {
   
 
   const isValidPassword = (password: string): boolean => {
@@ -36,6 +35,7 @@ export default function password({handlePrevStep, handlePasswordChange, password
                   type="password"
                   value={password}
                   onChange={handlePasswordChange}
+                  inputMode='text'
                   placeholder="Introduce tu contraseña"
                 />
                 <p id="password-help" className="text-gray-500 text-xs">

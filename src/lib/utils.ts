@@ -14,6 +14,8 @@ export function currentPathname(pathname: string | undefined) {
       case "/dashboard/customers":
         return "Clientes"
       default:
+      case "/dashboard/usersettings":
+        return "Configuración"
         break;
     }
 }
