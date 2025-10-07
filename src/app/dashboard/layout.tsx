@@ -21,14 +21,12 @@
 
 
     return (
-      <html>
-        <body className="flex min-h-screen lg:px-24">
+      <div className="flex min-h-screen lg:px-24 " role="document">
               <SidebarContent sidebarOpen={sidebarOpen} onSelect={() => setSidebarOpen(!sidebarOpen)} pathname={pathname} />
               <div className="flex flex-col flex-1">
                 <TopBarContent onMenuClick={() => setSidebarOpen(!sidebarOpen)} pathname={pathname} />
                 <Main>{children}</Main>
               </div>
-        </body>
-    </html>
+        </div>
     )
   } 

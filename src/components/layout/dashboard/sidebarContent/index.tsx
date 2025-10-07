@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { TvMinimal, User, X, Settings, LogOut } from "lucide-react"; 
 import { supabase } from "@/lib/supabaseClient";
@@ -31,16 +30,15 @@ export default function Sidebar({ onSelect, sidebarOpen, pathname }: SidebarProp
   
 
   return (
-    <aside className={`flex flex-col justify-between gap-12 bg-secondary p-4 pt-16 lg:w-64 lg:pl-12 lg:pr-4 fixed inset-0 z-50 transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:relative lg:translate-x-0 `}>
-
+    <aside className={`flex flex-col justify-between bg-secondary p-4 pt-16 lg:w-64 lg:pl-12 lg:pr-4 fixed inset-0 z-50 transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:relative lg:translate-x-0 `}>
     
         {/* Sidebar Header */}
-        <div className=" flex justify-center items-center gap-2">
+        <div className=" flex justify-center items-center">
             <div className="w-24 h-24 bg-primary rounded-lg"/>
         </div>
         
         {/* Sidebar Content */}
-        <div className="flex flex-col gap-2 justify-center w-[182px] mx-auto lg:w-full">
+        <div className="flex flex-col gap-2 justify-center w-[196px] mx-auto lg:w-full">
             {sidebarItems.map(({ title, path, icon: Icon }) => (
               title !== "Cerrar Sesión" ? 
               (
@@ -58,7 +56,7 @@ export default function Sidebar({ onSelect, sidebarOpen, pathname }: SidebarProp
         </div>
 
          {/* footer content */}   
-          <div className="flex justify-center w-[182px] mx-auto lg:w-full">
+          <div className="flex justify-center w-[196px] mx-auto lg:w-full">
                <Link href="/" onClick={handleSignOut} className="flex justify-center bg-red-300 text-red-600 font-bold py-2 px-6 rounded-xl w-full">
                  <LogOut size={24} className="mr-2"/>
                  Cerrar Sesión

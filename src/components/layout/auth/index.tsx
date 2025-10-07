@@ -102,55 +102,53 @@ import { useRouter } from 'next/navigation'
         }
     }
     return (
-        <div className={`flex items-center justify-center p-4 mt-12`}>
-        <div className="w-full max-w-md">
-            <div className="bg-secondary text-primary p-8 rounded-lg border border-primary shadow-lg">
-            
-            {/*TOP CONTENT*/}
-            {/* Header */}
-            <div className="text-center mb-8">
-                <h1 className="text-3xl font-bold mb-2">{getStepTitle()}</h1>
-                <p className="text-gray-600">{getStepSubtitle()}</p>
-            </div>
-    
-            
-            {/* CENTER CONTENT */}
-            {/* Step 1: Email */}
-            {step === 1 && (
-                <Email 
-                handleNextStep={handleNextStep} 
-                handleEmailChange={handleEmailChange} 
-                email={authFormData.email} 
-                isValidEmail={isValidEmail}/>
-            )}
-    
-            {/* Step 2: Password */}
-            {step === 2 && (
-                <Password  
-                handlePrevStep={handlePrevStep}
-                handlePasswordChange={handlePasswordChange}
-                password={authFormData.password} 
-                isLoading={isLoading} 
-                mode={mode}
-                handleSubmit={handleSubmit} 
-                getSubmitButtonText={getSubmitButtonText}
-                />
-            )}
-    
-            {/* BOTTON CONTENT */}
-            {/* Toggle Mode */}
-            <div className="mt-8 text-center">
-                <p className="text-gray-600 mb-2">{getToggleText()}</p>
-                <Button
-                type="button"
-                onClick={toggleMode}
-                className="hover:shadow-lg hover:opacity-95 transition-colors"
-                >
-                {getToggleButtonText()}
-                </Button>
-            </div>
+        <div className={`flex items-center justify-center p-4 h-screen `}>
+            <div className="bg-secondary w-full max-w-md text-primary p-8 shadow-lg">
+                
+                {/*TOP CONTENT*/}
+                {/* Header */}
+                <div className="text-center mb-8">
+                    <h1 className="text-3xl font-bold mb-2">{getStepTitle()}</h1>
+                    <p className="text-gray-600">{getStepSubtitle()}</p>
+                </div>
+        
+                
+                {/* CENTER CONTENT */}
+                {/* Step 1: Email */}
+                {step === 1 && (
+                    <Email 
+                    handleNextStep={handleNextStep} 
+                    handleEmailChange={handleEmailChange} 
+                    email={authFormData.email} 
+                    isValidEmail={isValidEmail}/>
+                )}
+        
+                {/* Step 2: Password */}
+                {step === 2 && (
+                    <Password  
+                    handlePrevStep={handlePrevStep}
+                    handlePasswordChange={handlePasswordChange}
+                    password={authFormData.password} 
+                    isLoading={isLoading} 
+                    mode={mode}
+                    handleSubmit={handleSubmit} 
+                    getSubmitButtonText={getSubmitButtonText}
+                    />
+                )}
+        
+                {/* BOTTON CONTENT */}
+                {/* Toggle Mode */}
+                <div className="mt-8 text-center">
+                    <p className="text-gray-600 mb-2">{getToggleText()}</p>
+                    <Button
+                    type="button"
+                    onClick={toggleMode}
+                    className="hover:shadow-lg hover:opacity-95 transition-colors"
+                    >
+                    {getToggleButtonText()}
+                    </Button>
+                </div>
             </div>            
-        </div>
         </div>
     )
     }

@@ -1,7 +1,7 @@
 "use client";
-import { usePathname } from "next/navigation"
-import LeftContent from "@/components/layout/dashboard/topBarContent/LeftContent";
-import RightContent from "@/components/layout/dashboard/topBarContent/RightContent";
+import { Menu } from "lucide-react"; 
+import { currentPathname } from "@/lib/utils";
+import LeftContent from "./LeftContent";
 
 type TopbarProps = {
   onMenuClick: () => void;
@@ -10,16 +10,21 @@ type TopbarProps = {
 
 export default function TopBarContent({ onMenuClick, pathname }: TopbarProps) {
 
-  const itemsValue: string[] = ["alias1", "alias2", "alias3"]; // ["alias1", "alias2", "alias3"]
 
   return (
     <header className="flex justify-between items-center gap-2 py-4 px-4 lg:pt-16 lg:pb-3 lg:px-0">
 
-      {/*Aqui se renderiza el contenido de la izquierda del topbar*/}
-      <LeftContent onMenuClick={onMenuClick} itemsValue={itemsValue} pathname={pathname}/>
+        <div className="flex items-center gap-4">
+          <div className="lg:hidden flex justify-center"> {/* Botón hamburguesa solo visible en mobile */}
+              <Menu size={36}  onClick={onMenuClick} className="text-primary h-10 w-10 rounded-full p-1 cursor-pointer" />
+          </div>
+            
+          <h1 className="text-2xl font-bold text-primary">{currentPathname(pathname)}</h1>
+        </div>
       
-      {/*Aqui se renderiza el contenido de la derecha del topbar*/}
-      <RightContent pathname={pathname}/>
+        <div>
+            <LeftContent pathname={pathname}/>
+        </div>
       
     </header>
   );

@@ -2,8 +2,7 @@
 import type { Metadata } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
 import "@/app/globals.css";
-import { useEffect } from "react";
-import {supabase} from "@/lib/supabaseClient";
+
 
 const inter = Inter({
   variable: "--font-inter",
@@ -26,15 +25,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
     
-
-  
-    useEffect(() => {
-    const test = async () => {
-      const { data } = await supabase.from("users").select("*")
-      console.log("Usuarios:", data)
-    }
-    test()
-  }, [])
 
 
 
