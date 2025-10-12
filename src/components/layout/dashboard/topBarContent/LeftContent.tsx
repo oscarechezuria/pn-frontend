@@ -31,7 +31,6 @@ export default function LeftContent({pathname}: {pathname?: string}) {
                 <span className="truncate hidden lg:block">Triguer Modal</span>
             </Button>
           </div>
-          <CirclePlus onClick={openModal} className={`lg:hidden h-10 w-10 text-primary transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}/>
       </div>
   )
 
