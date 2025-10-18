@@ -1,6 +1,5 @@
 import React, {ChangeEvent, FormEvent} from 'react'
 import { ArrowLeft, Lock } from "lucide-react"
-import { AuthMode } from "@/app/types/Auth"
 import {Button} from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
@@ -9,12 +8,10 @@ type PasswordProps = {
   handlePasswordChange: (e: ChangeEvent<HTMLInputElement>) => void 
   password: string
   isLoading: boolean
-  mode: AuthMode
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void
-  getSubmitButtonText: () => string
 }
 
-export default function password({handlePrevStep, handlePasswordChange, password, isLoading, mode, handleSubmit, getSubmitButtonText}: PasswordProps) {
+export default function password({handlePrevStep, handlePasswordChange, password, isLoading, handleSubmit}: PasswordProps) {
   
 
   const isValidPassword = (password: string): boolean => {
@@ -37,6 +34,7 @@ export default function password({handlePrevStep, handlePasswordChange, password
                   onChange={handlePasswordChange}
                   inputMode='text'
                   placeholder="Introduce tu contraseña"
+                  className='h-14 rounded-full'
                 />
                 <p id="password-help" className="text-gray-500 text-xs">
                   La contraseña debe tener al menos 6 caracteres
@@ -48,21 +46,10 @@ export default function password({handlePrevStep, handlePasswordChange, password
                 )}
               </div>
 
-              <div className="flex flex-col md:flex-row justify-between gap-3">
-                <Button
-                  type="button"
-                  onClick={handlePrevStep}
-                  aria-label="Volver al paso anterior"
-                  className='flex-1 cursor-pointer'
-                  variant={"outline"}
-                >
-                  <ArrowLeft className="w-4 h-4" aria-hidden="true" />
-                  Atrás
-                </Button>
-
+              <div className="flex flex-col gap-3">
                 <Button
                   type="submit"
-                  className={`flex-1 justify-center cursor-pointer  ${!isValidPassword(password) ? "" : "hover:shadow-lg hover:opacity-95 transition-colors"} `}
+                  className={`w-full cursor-pointer rounded-full h-12 text-md  ${!isValidPassword(password) ? "" : "hover:shadow-lg hover:opacity-95 transition-colors"} `}
                   disabled={isLoading || !isValidPassword(password)}
                   aria-describedby="submit-help"
                 >
@@ -75,13 +62,20 @@ export default function password({handlePrevStep, handlePasswordChange, password
                       <span>Procesando...</span>
                     </div>
                   ) : (
-                    getSubmitButtonText()
+                    <h2>Continuar</h2>
                   )}
                 </Button>
+                
+                <Button
+                  type="button"
+                  onClick={handlePrevStep}
+                  aria-label="Volver al paso anterior"
+                  className='w-full cursor-pointer rounded-full h-12 text-md bg-blue-200 hover:bg-blue-300 text-black'
+                >
+                  <ArrowLeft className="w-4 h-4" aria-hidden="true" />
+                  Atrás
+                </Button>
               </div>
-              <p id="submit-help" className="sr-only">
-                {mode === "login" ? "Inicia sesión con tu cuenta" : "Crea tu nueva cuenta"}
-              </p>
           </form>
   )
 }

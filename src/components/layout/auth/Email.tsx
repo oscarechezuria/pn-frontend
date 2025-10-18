@@ -23,6 +23,7 @@ export default function Email({handleNextStep, handleEmailChange, email, isValid
                   type="email"
                   value={email}
                   onChange={handleEmailChange}
+                  className="h-14 rounded-full"
                   placeholder="Introduce tu correo electrónico"
                 />
                 {email && !isValidEmail(email) && (
@@ -34,7 +35,7 @@ export default function Email({handleNextStep, handleEmailChange, email, isValid
             
             <Button
                 type="submit"
-                className="w-full cursor-pointer"
+                className="w-full cursor-pointer rounded-full h-12 text-md"
                 disabled={!isValidEmail(email)}
                 aria-describedby="continue-help"
             >
