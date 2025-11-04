@@ -5,7 +5,7 @@ import { Upload } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
-export default function FileUpload({ setFileData }: { setFileData: (data: any) => void }) {
+export default function FileUpload({ setFileData }: { setFileData: (data: null) => void }) {
   const [isDragging, setIsDragging] = useState(false)
   const [file, setFile] = useState<File | null>(null)
   const [isLoading, setIsLoading] = useState(false)
