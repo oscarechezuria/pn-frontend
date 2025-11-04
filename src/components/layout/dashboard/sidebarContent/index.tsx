@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { TvMinimal, User, X, Settings, LogOut } from "lucide-react"; 
+import { TvMinimal, User, Settings, LogOut } from "lucide-react"; 
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
 import {Button} from "@/components/ui/button"

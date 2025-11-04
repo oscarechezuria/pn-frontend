@@ -1,13 +1,11 @@
 import React, {useState} from 'react'
 import {Button} from '@/components/ui/button'
-import { CirclePlus } from 'lucide-react'
 
 
 
 export default function LeftContent({pathname}: {pathname?: string}) {
 
     const [isOpen, setIsOpen] = useState<boolean>(false)
-    const openModal: () => void = () => setIsOpen(true)
 
 
   if (pathname == "/dashboard") 
@@ -26,7 +24,7 @@ export default function LeftContent({pathname}: {pathname?: string}) {
       <div>
           <div className="hidden lg:block">
             <Button
-                onClick={openModal}
+                onClick={() => setIsOpen(!isOpen)}
               >
                 <span className="truncate hidden lg:block">Triguer Modal</span>
             </Button>

@@ -1,7 +1,7 @@
   "use client"
 
   import "../globals.css"
-  import { useState, useEffect } from "react"
+  import { useState} from "react"
   import TopBarContent from "@/components/layout/dashboard/topBarContent"
   import SidebarContent from "@/components/layout/dashboard/sidebarContent"
   import Main from "@/components/layout/dashboard/main"

@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation'
 
     export default function AuthContent() {
     const [step, setStep] = useState<AuthStep>(1)
-    const [authMode, setAuthMode] = useState<AuthMode>('login')
+    const [authMode] = useState<AuthMode>('login')
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [authFormData, setAuthFormData] = useState<AuthFormData>({
         email: "",
@@ -55,7 +55,7 @@ import { useRouter } from 'next/navigation'
 
         if (authMode === 'login') {
 
-            const { data, error } = await supabase.auth.signInWithPassword({
+            const { error } = await supabase.auth.signInWithPassword({
             email: authFormData.email,
             password: authFormData.password,
             })
@@ -69,7 +69,7 @@ import { useRouter } from 'next/navigation'
             
 
         } else {
-            const { data, error } = await supabase.auth.signUp({
+            const { error } = await supabase.auth.signUp({
             email: authFormData.email,
             password: authFormData.password,
             })

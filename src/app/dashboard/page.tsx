@@ -2,12 +2,12 @@
 import FileUpload from '@/components/layout/dashboard/main/FileUpload'
 import React, { useState } from 'react'
 
-export default function page() {
+export default function Page() {
 
-  const [data, setData] = useState(null)
+  const [Data] = useState(null)
 
   
-  return data == null ? 
+  return Data == null ? 
    (
     <FileUpload/>     
     )

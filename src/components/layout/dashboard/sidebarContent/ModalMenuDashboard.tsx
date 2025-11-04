@@ -31,7 +31,7 @@ export function ModalMenuDashboard({ sidebarOpen, onSelect, handleSignout }: Mod
       const timer = setTimeout(() => setIsVisible(false), 300)
       return () => clearTimeout(timer)
     }
-  }, [sidebarOpen])
+  }, [sidebarOpen, isVisible])
 
   if (!isVisible) return null
 
