@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react"
 
-export default function Main({ children } : { children: React.ReactNode }) {
+export default function Main({ children }: { children: React.ReactNode }) {
   return (
-    <main className="flex-1 p-2 bg-white rounded-lg mb-4">
-        {children}
+    <main className="flex-1 overflow-auto p-4 bg-white rounded-lg mb-4 min-h-0">
+      {children}
     </main>
   )
 }
