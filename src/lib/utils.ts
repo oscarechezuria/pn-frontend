@@ -1,10 +1,15 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+
 export interface Invoice {
   client_id: string;
   document_number: number;
-  document_type: string; // FACTURA o NOTA_CREDITO
+  document_type: string; 
   seller_name: string;
   issue_date: string;
   due_date: string;
@@ -12,11 +17,6 @@ export interface Invoice {
   net_amount: number;
   is_active: boolean;
 }
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
-
 
 export function currentPathname(pathname: string | undefined) {
 
@@ -34,7 +34,7 @@ export function currentPathname(pathname: string | undefined) {
 
 
 
-export function transformInvoices(data: any[]): any[] {
+export function transformInvoices(data: Invoice[]): Invoice[] {
   if (!Array.isArray(data)) return [];
 
   return data.map((item) => {
@@ -90,7 +90,7 @@ export const filterInvoices = (data: Invoice[]): Invoice[] => {
     }
   }
 
-  // 3. Extraemos solo las MÁS ANTIGUAS
+  // 3. Extraemos todos los objetos Invoice guardados en el Map y los recopilamos en un array. 
   const oldestInvoices = Array.from(oldestInvoicesMap.values());
 
   // 4. ORDENAR → Primero por monto, luego por días vencidos
