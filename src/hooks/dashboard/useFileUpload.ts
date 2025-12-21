@@ -1,11 +1,11 @@
 import { useState, useRef, type DragEvent, type ChangeEvent } from "react"
 import { processFile } from "@/services/dashboard/fileUploadService"
 
-type UseFileUploadProps = {
-  setFileData: (data: any) => void
+type FileUploadProps = {
+  refetch: () => Promise<void>
 }
 
-export function useFileUpload({ setFileData }: UseFileUploadProps) {
+export function useFileUpload({ refetch }: FileUploadProps) {
   const [file, setFile] = useState<File | null>(null)
   const [isDragging, setIsDragging] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -53,7 +53,10 @@ export function useFileUpload({ setFileData }: UseFileUploadProps) {
     try {
       setIsLoading(true)
       const result = await processFile(file)
-      setFileData(result)
+      if (result && result.length > 0) {
+       await refetch() 
+      }
+
     } catch (error) {
       console.error("Error al procesar el archivo:", error)
       alert("❌ Ocurrió un error al procesar el archivo")

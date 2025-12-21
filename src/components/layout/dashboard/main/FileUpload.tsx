@@ -6,10 +6,10 @@ import { Input } from "@/components/ui/input"
 import { useFileUpload } from "@/hooks/dashboard/useFileUpload"
 
 type FileUploadProps = {
-  setFileData: (data: any) => void
+  refetch: () => Promise<void>
 }
 
-export default function FileUpload({ setFileData }: FileUploadProps) {
+export default function FileUpload({ refetch }: FileUploadProps) {
   const {
     file,
     isDragging,
@@ -23,7 +23,7 @@ export default function FileUpload({ setFileData }: FileUploadProps) {
     handleClick,
     handleProcessFile,
     handleRemoveFile,
-  } = useFileUpload({ setFileData })
+  } = useFileUpload({ refetch })
 
   return (
     <div
