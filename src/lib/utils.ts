@@ -1,21 +1,11 @@
+import { Invoice } from "@/app/types/Common";
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
 
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
-}
-
-export interface Invoice {
-  client_id: string;
-  document_number: number;
-  document_type: string; 
-  seller_name: string;
-  issue_date: string;
-  due_date: string;
-  days_expired: number;
-  net_amount: number;
-  is_active: boolean;
 }
 
 export function currentPathname(pathname: string | undefined) {
@@ -83,10 +73,10 @@ export const filterInvoices = (data: Invoice[]): Invoice[] => {
   const oldestInvoicesMap = new Map<string, Invoice>();
 
   for (const invoice of onlyInvoices) {
-    const existing = oldestInvoicesMap.get(invoice.client_id);
+    const existing = oldestInvoicesMap.get(invoice.customer_name);
 
     if (!existing || invoice.days_expired > existing.days_expired) {
-      oldestInvoicesMap.set(invoice.client_id, invoice);
+      oldestInvoicesMap.set(invoice.customer_name, invoice);
     }
   }
 
@@ -106,13 +96,13 @@ export const filterInvoices = (data: Invoice[]): Invoice[] => {
 
   // 5. Crear un Set para saber cuáles facturas ya usamos
   const oldestSet = new Set(
-    oldestInvoices.map(inv => `${inv.client_id}-${inv.document_number}`)
+    oldestInvoices.map(inv => `${inv.customer_name}-${inv.document_number}`)
   );
 
   // 6. Recuperar TODA la data excluida manteniendo su orden original
   const remainingData = data.filter(
     (item) =>
-      !oldestSet.has(`${item.client_id}-${item.document_number}`)
+      !oldestSet.has(`${item.customer_name}-${item.document_number}`)
   );
 
   // 7. Unir resultados sin romper orden

@@ -2,7 +2,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { fetchInvoices, type Invoice } from "@/services/dashboard/invoiceService";
+import { fetchInvoices } from "@/services/dashboard/invoiceService";
+import { Invoice } from "@/app/types/Common";
 
 export function useInvoice() {
   const [data, setData] = useState<Invoice[]>([]);

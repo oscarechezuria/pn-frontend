@@ -8,13 +8,13 @@ import {
   createColumnHelper,
 } from "@tanstack/react-table";
 
-import { type Invoice } from "@/services/dashboard/invoiceService";
+import { Invoice } from "@/app/types/Common";
 import { formatCurrency } from "@/lib/utils";
 
 const columnHelper = createColumnHelper<Invoice>();
 
 const columns = [
-  columnHelper.accessor("client_id", {
+  columnHelper.accessor("customer_name", {
     header: "Cliente",
     cell: (info) => info.getValue(),
   }),
@@ -57,15 +57,15 @@ const getGroupedData = () => {
   const groups: Record<string, Invoice[]> = {};
 
   data.forEach((invoice) => {
-    if (!groups[invoice.client_id]) {
-      groups[invoice.client_id] = [];
+    if (!groups[invoice.customer_name]) {
+      groups[invoice.customer_name] = [];
     }
-    groups[invoice.client_id].push(invoice);
+    groups[invoice.customer_name].push(invoice);
   });
 
   // 🔥 ORDENAR cada grupo antes de retornarlo
-  Object.keys(groups).forEach((clientId) => {
-    groups[clientId].sort((a, b) => {
+  Object.keys(groups).forEach((customerName) => {
+    groups[customerName].sort((a, b) => {
       // 1️⃣ Si tienen los mismos días vencidos → ordenar por monto
       if (b.days_expired === a.days_expired) {
         return b.net_amount - a.net_amount; // monto mayor primero
@@ -176,9 +176,10 @@ return (
                     return (
                       <td
                         key={cell.id}
-                        className={`px-4 py-3 text-sm text-gray-700 whitespace-nowrap ${
-                          cell.column.id === 'net_amount' ? 'font-mono text-right tabular-nums' : ''
-                        }`}
+                        className={`px-4 py-3 text-sm text-gray-700 whitespace-nowrap 
+                        ${ cell.column.id === 'days_expired' ? 'text-center' : ''}
+                         ${ cell.column.id === 'net_amount' ? 'font-mono text-right tabular-nums' : ''}`
+                        }
                       >
                         {formattedValue}
                       </td>
@@ -194,7 +195,7 @@ return (
                 colSpan={6}
                 className="px-4 py-3 text-sm text-gray-800 whitespace-nowrap"
               >
-                SUBTOTAL: {groupedData[client][0].client_id}
+                SUBTOTAL: {groupedData[client][0].customer_name}
               </td>
               <td className="px-4 py-3 text-sm text-gray-800 whitespace-nowrap"></td>
               <td className="px-4 py-3 text-sm text-gray-800 whitespace-nowrap font-mono text-right tabular-nums">

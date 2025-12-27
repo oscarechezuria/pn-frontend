@@ -1,18 +1,7 @@
 "use client";
 
 import {supabase}  from "@/lib/supabaseClient";
-
-export interface Invoice {
-  client_id: string;
-  document_number: number;
-  document_type: string;
-  seller_name: string;
-  issue_date: string;
-  due_date: string;
-  days_expired: number;
-  net_amount: number;
-  is_active: boolean;
-}
+import { Invoice } from "@/app/types/Common";
 
 
 export async function fetchInvoices(): Promise<Invoice[]> {
