@@ -9,3 +9,13 @@ export interface Invoice {
   net_amount: number;
   is_active: boolean;
 }
+
+export interface Customer {
+  customer_id: number;
+  customer_code: string;
+  customer_name: string;
+  credit_days: number;
+  region: string;
+  seller: string;
+  is_active: boolean;
+}
