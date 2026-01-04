@@ -6,13 +6,25 @@
 @theme {
   --font-inter: var(--font-inter);
   --font-mono: var(--font-geist-mono);
+  
+  /* Definición de la animación fadeIn */
+  --animate-fadeIn: fadeIn 0.3s ease-in-out;
+  
+  /* Definición del keyframe fadeIn */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 }
 
 body {
   background-color: var(--color-secondary);
   font-family: var(--font-inter)
 }
-
 @layer base {
   .text-label {
     font-size: 0.875rem; /* 14px */
