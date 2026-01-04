@@ -6,6 +6,8 @@ import TopBarContent from "@/components/layout/dashboard/topBarContent"
 import SidebarContent from "@/components/layout/dashboard/sidebarContent"
 import Main from "@/components/layout/dashboard/main"
 import { usePathname } from "next/navigation"
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { TanstackqueryProvider } from "@/lib/tanstackqueryProvider"
 
 export default function DashboardLayout({
   children,
@@ -32,7 +34,13 @@ export default function DashboardLayout({
         />
 
         {/* Main area */}
-        <Main>{children}</Main>
+        <Main>
+            <TanstackqueryProvider>   
+              {children}
+            <ReactQueryDevtools />
+            </TanstackqueryProvider>
+
+        </Main>
       </div>
     </div>
   )

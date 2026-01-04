@@ -5,18 +5,13 @@ import FileUpload from "@/components/layout/dashboard/main/FileUpload";
 import AccountsReceivable from "@/components/layout/dashboard/main/AccountsReceivable";
 import { useInvoice } from "@/hooks/dashboard/useInvoice";
 import { filterInvoices, transformInvoices } from "@/lib/utils";
-
+import Skeleton_table from "@/components/ui/skeleton_table";
 
 export default function Page() {
   const { data, loading, error, refetch } = useInvoice();
 
-
   if (loading) {
-    return (
-      <div className="w-full h-screen flex items-center justify-center text-lg font-semibold">
-        Loading...
-      </div>
-    );
+    return <Skeleton_table />;
   }
 
   if (error) {
@@ -27,20 +22,17 @@ export default function Page() {
     );
   }
 
-  const isEmpty = Array.isArray(data) && data.length === 0;
+  const isEmpty = data.length === 0;
 
-  // Transformamos la data (añade days_expired, a cada objeto.)
+  // Transformamos la data (añade days_expired a cada objeto)
   const transformedData = !isEmpty ? transformInvoices(data) : [];
 
-  // Ordenamos solo facturas por days_expired (desc) sin tomar en cuenta las notas de crédito
-  const sortedData =
-    !isEmpty && Array.isArray(transformedData)
-      ? filterInvoices(transformedData)
-      : [];
+  // Filtramos y ordenamos las facturas
+  const sortedData = !isEmpty ? filterInvoices(transformedData) : [];
 
   return isEmpty ? (
     <FileUpload refetch={refetch} />
   ) : (
-    <AccountsReceivable data={sortedData} />
+    <AccountsReceivable data={sortedData} refetch={refetch} />
   );
 }

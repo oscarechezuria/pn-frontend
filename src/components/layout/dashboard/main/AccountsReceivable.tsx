@@ -7,10 +7,15 @@ import {
   flexRender,
   createColumnHelper,
 } from "@tanstack/react-table";
+import type { QueryObserverResult } from "@tanstack/react-query"
 
 import { Invoice } from "@/app/types/Common";
 import { formatCurrency } from "@/lib/utils";
 
+type AccountsReceivableProps = {
+  data: Invoice[];
+  refetch: () => Promise<QueryObserverResult<Invoice[], Error>>;
+};
 const columnHelper = createColumnHelper<Invoice>();
 
 const columns = [
@@ -48,7 +53,7 @@ const columns = [
   }),
 ];
 
-export default function AccountsReceivable({data}: {data: Invoice[]}) {
+export default function AccountsReceivable({data, refetch}: AccountsReceivableProps) {
 
  /* -------------------------------
  *  Agrupar facturas por cliente
@@ -117,10 +122,15 @@ const getGroupedData = () => {
     getCoreRowModel: getCoreRowModel(),
   });
 
+  const predata = () => {
+    console.log("Pre-fetching data...");
+  }
+
 return (
   <div className="w-full h-screen flex flex-col">
-    <table className="min-w-full bg-white">
+    <table className="animate-fadeIn min-w-full bg-white">
 
+          
       {/* HEADER FIJO */}
       <thead className="bg-primary text-white sticky top-0">
         <tr>

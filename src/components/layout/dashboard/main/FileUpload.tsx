@@ -4,9 +4,11 @@ import { Upload } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useFileUpload } from "@/hooks/dashboard/useFileUpload"
+import { Invoice } from "@/app/types/Common"
+import type { QueryObserverResult } from "@tanstack/react-query"
 
 type FileUploadProps = {
-  refetch: () => Promise<void>
+  refetch: () => Promise<QueryObserverResult<Invoice[], Error>>
 }
 
 export default function FileUpload({ refetch }: FileUploadProps) {
