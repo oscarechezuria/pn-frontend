@@ -1,22 +1,25 @@
 "use client";
 
 import {supabase}  from "@/lib/supabaseClient";
-import { Invoice } from "@/app/types/Common";
+import { AccountsReceivableWithCustomer } from "@/app/types/Common";
 
 
-export async function fetchInvoices(): Promise<Invoice[]> {
-  const { data, error } = await supabase
-    .from("accounts_receivable")
-    .select("*")
-    .eq("is_active", true);
-    
+export const fetchInvoices = {
 
-  if (error) {
-    console.error("Error fetching facturas:", error);
-    throw new Error(error.message);
-  }
+  fetchInvoicesWithCustomer: async(): Promise<AccountsReceivableWithCustomer[]> => {
+    const { data, error } = await supabase
+    .from('accounts_receivable_with_customer')
+    .select(`*`);
 
-  console.log("Fetched facturas:", data);
+    if (error) {
+      console.error("Error fetching invoices with customer:", error);
+      throw new Error(error.message);
+    }
 
-  return data ?? [];
+
+    return data ?? [];
+
+  },
+
+
 }

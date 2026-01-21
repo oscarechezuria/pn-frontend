@@ -30,8 +30,10 @@ export default function Page() {
   // Filtramos y ordenamos las facturas
   const sortedData = !isEmpty ? filterInvoices(transformedData) : [];
 
+
+
   return isEmpty ? (
-    <FileUpload refetch={refetch} />
+    <FileUpload refetch={refetch}/>
   ) : (
     <AccountsReceivable data={sortedData} refetch={refetch} />
   );

@@ -9,14 +9,14 @@ import {
 } from "@tanstack/react-table";
 import type { QueryObserverResult } from "@tanstack/react-query"
 
-import { Invoice } from "@/app/types/Common";
+import { AccountsReceivableWithCustomer } from "@/app/types/Common";
 import { formatCurrency } from "@/lib/utils";
 
 type AccountsReceivableProps = {
-  data: Invoice[];
-  refetch: () => Promise<QueryObserverResult<Invoice[], Error>>;
+  data: AccountsReceivableWithCustomer[];
+  refetch: () => Promise<QueryObserverResult<AccountsReceivableWithCustomer[], Error>>;
 };
-const columnHelper = createColumnHelper<Invoice>();
+const columnHelper = createColumnHelper<AccountsReceivableWithCustomer>();
 
 const columns = [
   columnHelper.accessor("customer_name", {
@@ -43,7 +43,7 @@ const columns = [
     header: "Días Vencidos",
     cell: (info) => info.getValue(),
   }),
-  columnHelper.accessor("seller_name", {
+  columnHelper.accessor("seller_first_name", {
     header: "Vendedor",
     cell: (info) => info.getValue(),
   }),
@@ -53,13 +53,13 @@ const columns = [
   }),
 ];
 
-export default function AccountsReceivable({data, refetch}: AccountsReceivableProps) {
+export default function AccountsReceivable({data}: AccountsReceivableProps) {
 
  /* -------------------------------
  *  Agrupar facturas por cliente
  * ------------------------------- */
 const getGroupedData = () => {
-  const groups: Record<string, Invoice[]> = {};
+  const groups: Record<string, AccountsReceivableWithCustomer[]> = {};
 
   data.forEach((invoice) => {
     if (!groups[invoice.customer_name]) {
@@ -88,7 +88,7 @@ const getGroupedData = () => {
   /* -------------------------------
    *  Calcular subtotales por cliente
    * ------------------------------- */
-  const getSubtotals = (groups: Record<string, Invoice[]>) => {
+  const getSubtotals = (groups: Record<string, AccountsReceivableWithCustomer[]>) => {
     const subs: Record<string, number> = {};
 
     Object.keys(groups).forEach((client) => {
@@ -122,9 +122,6 @@ const getGroupedData = () => {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  const predata = () => {
-    console.log("Pre-fetching data...");
-  }
 
 return (
   <div className="w-full h-screen flex flex-col">

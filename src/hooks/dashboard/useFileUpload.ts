@@ -1,10 +1,10 @@
 import { useState, useRef, type DragEvent, type ChangeEvent } from "react"
 import { processFile } from "@/services/dashboard/fileUploadService"
-import { Invoice } from "@/app/types/Common"
+import { AccountsReceivableWithCustomer } from "@/app/types/Common"
 import type { QueryObserverResult } from "@tanstack/react-query"
 
 type FileUploadProps = {
-  refetch: () => Promise<QueryObserverResult<Invoice[], Error>>
+  refetch: () => Promise<QueryObserverResult<AccountsReceivableWithCustomer[], Error>>
 }
 
 export function useFileUpload({ refetch }: FileUploadProps) {

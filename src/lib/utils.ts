@@ -1,4 +1,4 @@
-import { Invoice } from "@/app/types/Common";
+import { AccountsReceivableWithCustomer } from "@/app/types/Common";
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -24,7 +24,7 @@ export function currentPathname(pathname: string | undefined) {
 
 
 
-export function transformInvoices(data: Invoice[]): Invoice[] {
+export function transformInvoices(data: AccountsReceivableWithCustomer[]): AccountsReceivableWithCustomer[] {
   if (!Array.isArray(data)) return [];
 
   return data.map((item) => {
@@ -63,14 +63,14 @@ export function transformInvoices(data: Invoice[]): Invoice[] {
 }
 
 
-export const filterInvoices = (data: Invoice[]): Invoice[] => {
+export const filterInvoices = (data: AccountsReceivableWithCustomer[]): AccountsReceivableWithCustomer[] => {
   // 1. Filtrar únicamente facturas
   const onlyInvoices = data.filter(
     (item) => item.document_type.toLowerCase() === "facturas"
   );
 
   // 2. Encontrar la factura más antigua por cliente
-  const oldestInvoicesMap = new Map<string, Invoice>();
+  const oldestInvoicesMap = new Map<string, AccountsReceivableWithCustomer>();
 
   for (const invoice of onlyInvoices) {
     const existing = oldestInvoicesMap.get(invoice.customer_name);
