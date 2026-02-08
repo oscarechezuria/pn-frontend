@@ -3,8 +3,8 @@
 import { Upload } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { useFileUpload } from "@/hooks/dashboard/useFileUpload"
-import { AccountsReceivableWithCustomer} from "@/app/types/Common"
+import { useFileUpload } from "@/hooks/useFileUpload"
+import { AccountsReceivableWithCustomer } from "@/app/types/Common"
 import type { QueryObserverResult } from "@tanstack/react-query"
 
 type FileUploadProps = {
@@ -34,13 +34,12 @@ export default function FileUpload({ refetch }: FileUploadProps) {
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
-      className={`relative w-full p-12 rounded-2xl border-2 border-dashed transition-all duration-300 cursor-pointer flex items-center justify-center h-full ${
-        file
+      className={`relative w-full p-12 rounded-2xl border-2 border-dashed transition-all duration-300 cursor-pointer flex items-center justify-center h-full ${file
           ? "bg-blue-50 border-blue-400 text-white"
           : isDragging
-          ? "bg-blue-50 border-blue-400 scale-105"
-          : "bg-white border-slate-300 hover:border-blue-400 hover:bg-blue-50"
-      }`}
+            ? "bg-blue-50 border-blue-400 scale-105"
+            : "bg-white border-slate-300 hover:border-blue-400 hover:bg-blue-50"
+        }`}
     >
       <Input ref={fileInputRef} type="file" onChange={handleFileChange} className="hidden" />
 

@@ -1,9 +1,7 @@
-import React, {useState} from 'react'
-import {Button} from '@/components/ui/button'
-import { Users, UserCheck, UserX, ChevronDown, BrushCleaning, FunnelPlus} from "lucide-react";
+import React, { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Users, UserCheck, UserX, ChevronDown, BrushCleaning, FunnelPlus } from "lucide-react";
 import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-
-
 
 
 interface CheckboxProps {
@@ -23,6 +21,7 @@ const SimpleCheckbox: React.FC<CheckboxProps> = ({ checked, onCheckedChange, ari
   />
 );
 
+
 interface Zone {
   id: string;
   name: string;
@@ -30,7 +29,8 @@ interface Zone {
   subzones: string[];
 }
 
-export default function LeftContent({pathname}: {pathname?: string}) {
+
+export default function LeftContent({ pathname }: { pathname?: string }) {
 
 
 
@@ -69,9 +69,9 @@ export default function LeftContent({pathname}: {pathname?: string}) {
 
   // Maneja el toggle de subzonas individuales
   const handleSubzoneToggle = (subzone: string): void => {
-    setSelectedZones((prev) => 
-      prev.includes(subzone) 
-        ? prev.filter((z) => z !== subzone) 
+    setSelectedZones((prev) =>
+      prev.includes(subzone)
+        ? prev.filter((z) => z !== subzone)
         : [...prev, subzone]
     );
   };
@@ -88,9 +88,9 @@ export default function LeftContent({pathname}: {pathname?: string}) {
   };
 
   const toggleExpanded = (zoneId: string): void => {
-    setExpandedZones((prev) => 
-      prev.includes(zoneId) 
-        ? prev.filter((z) => z !== zoneId) 
+    setExpandedZones((prev) =>
+      prev.includes(zoneId)
+        ? prev.filter((z) => z !== zoneId)
         : [...prev, zoneId]
     );
   };
@@ -112,9 +112,8 @@ export default function LeftContent({pathname}: {pathname?: string}) {
           <button
             type='button'
             onClick={() => handleZoneButtonClick(zone)}
-            className={`px-4 py-2 text-sm rounded-full font-semibold transition-all duration-200 flex items-center cursor-pointer ${zone.color} ${
-              isZoneActive(zone) ? "ring-2 ring-offset-2 ring-slate-400" : ""
-            } ${isMobile ? "w-full justify-between" : ""}`}
+            className={`px-4 py-2 text-sm rounded-full font-semibold transition-all duration-200 flex items-center cursor-pointer ${zone.color} ${isZoneActive(zone) ? "ring-2 ring-offset-2 ring-slate-400" : ""
+              } ${isMobile ? "w-full justify-between" : ""}`}
           >
             {zone.name}
             {zone.subzones.length > 1 && (
@@ -128,11 +127,10 @@ export default function LeftContent({pathname}: {pathname?: string}) {
           {/* Subzones expandidas */}
           {zone.subzones.length > 1 && expandedZones.includes(zone.id) && (
             <div
-              className={`${
-                isMobile
+              className={`${isMobile
                   ? "mt-2 pl-4"
                   : "absolute top-full left-0 mt-2 w-56 bg-white dark:bg-slate-800 rounded-lg shadow-lg z-10 p-3 border border-slate-200 dark:border-slate-700"
-              }`}
+                }`}
             >
               {!isMobile && (
                 <p className="text-xs font-semibold text-slate-700 dark:text-slate-300 mb-2 px-2">Subzonas:</p>
@@ -161,85 +159,85 @@ export default function LeftContent({pathname}: {pathname?: string}) {
 
 
   if (pathname == "/dashboard")
-  return (
-    <div className="dark:bg-slate-900">
-      <div className="hidden md:flex gap-2">
-        <ZonesList />
-        <div onClick={handleClearFilters}  className="flex justify-center items-center ml-4 border border-red-100 rounded-xl py-1 px-2 cursor-pointer hover:bg-red-100 transition">
-          <BrushCleaning className="text-red-500" />
+    return (
+      <div className="dark:bg-slate-900">
+        <div className="hidden md:flex gap-2">
+          <ZonesList />
+          <div onClick={handleClearFilters} className="flex justify-center items-center ml-4 border border-red-100 rounded-xl py-1 px-2 cursor-pointer hover:bg-red-100 transition">
+            <BrushCleaning className="text-red-500" />
+          </div>
+        </div>
+
+        <div className="md:hidden">
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger asChild>
+              <button type="button" aria-label="Filtrar por zona" title="Filtrar por zona" className='bg-black p-1 rounded-md'>
+                <FunnelPlus className='text-white' />
+              </button>
+            </SheetTrigger>
+            <SheetContent side="bottom" className="h-[70vh] rounded-t-xl ">
+              <SheetHeader className="flex flex-row items-center justify-between pr-12">
+                <SheetTitle>Filtrar por zona</SheetTitle>
+                <div onClick={handleClearFilters} className="text-red-500 border border-red-100 rounded-md p-1">
+                  <BrushCleaning className="h-5 w-5" />
+                </div>
+              </SheetHeader>
+              <div className="mt-6 overflow-y-auto p-2">
+                <ZonesList isMobile />
+              </div>
+
+              <SheetFooter>
+                <SheetClose asChild>
+                  <Button variant='default' className="w-full">
+                    Cerrar
+                  </Button>
+                </SheetClose>
+              </SheetFooter>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
+    );
 
-      <div className="md:hidden">
-        <Sheet open={open} onOpenChange={setOpen}>
-          <SheetTrigger asChild>
-            <button type="button" aria-label="Filtrar por zona" title="Filtrar por zona" className='bg-black p-1 rounded-md'>
-              <FunnelPlus  className='text-white'/>
-            </button>
-          </SheetTrigger>
-          <SheetContent side="bottom" className="h-[70vh] rounded-t-xl ">
-            <SheetHeader className="flex flex-row items-center justify-between pr-12">  
-              <SheetTitle>Filtrar por zona</SheetTitle>
-              <div  onClick={handleClearFilters} className="text-red-500 border border-red-100 rounded-md p-1">
-                <BrushCleaning className="h-5 w-5" />
-              </div>
-            </SheetHeader>
-            <div className="mt-6 overflow-y-auto p-2">
-              <ZonesList isMobile />
-            </div>
 
-            <SheetFooter>
-              <SheetClose asChild>
-                <Button variant='default' className="w-full">
-                  Cerrar
-                </Button>
-              </SheetClose>
-            </SheetFooter>
-          </SheetContent>
-        </Sheet>
-      </div>
-    </div>
-  );
-
-  
-  if (pathname == "/dashboard/customers") 
-  return (
+  if (pathname == "/dashboard/customers")
+    return (
       <div className="flex items-center gap-3">
-          {/* Card Total Clientes */}
-          <div className="flex items-center gap-2 bg-card border border-border rounded-lg px-3 py-2 h-10">
-            <Users className="h-4 w-4 text-muted-foreground" />
-            <div className="flex items-center gap-1.5">
-              <span className="text-xs font-medium text-muted-foreground">Total:</span>
-              <span className="text-sm font-bold text-foreground">totalClientes</span>
-            </div>
+        {/* Card Total Clientes */}
+        <div className="flex items-center gap-2 bg-card border border-border rounded-lg px-3 py-2 h-10">
+          <Users className="h-4 w-4 text-muted-foreground" />
+          <div className="flex items-center gap-1.5">
+            <span className="text-xs font-medium text-muted-foreground">Total:</span>
+            <span className="text-sm font-bold text-foreground">totalClientes</span>
           </div>
+        </div>
 
-          {/* Card Clientes Activos */}
-          <div className="flex items-center gap-2 bg-card border border-border rounded-lg px-3 py-2 h-10">
-            <UserCheck className="h-4 w-4 text-green-600" />
-            <div className="flex items-center gap-1.5">
-              <span className="text-xs font-medium text-muted-foreground">Activos:</span>
-              <span className="text-sm font-bold text-green-600">clientesActivo</span>
-            </div>
+        {/* Card Clientes Activos */}
+        <div className="flex items-center gap-2 bg-card border border-border rounded-lg px-3 py-2 h-10">
+          <UserCheck className="h-4 w-4 text-green-600" />
+          <div className="flex items-center gap-1.5">
+            <span className="text-xs font-medium text-muted-foreground">Activos:</span>
+            <span className="text-sm font-bold text-green-600">clientesActivo</span>
           </div>
+        </div>
 
-          {/* Card Clientes Inactivos */}
-          <div className="flex items-center gap-2 bg-card border border-border rounded-lg px-3 py-2 h-10">
-            <UserX className="h-4 w-4 text-red-600" />
-            <div className="flex items-center gap-1.5">
-              <span className="text-xs font-medium text-muted-foreground">Inactivos:</span>
-              <span className="text-sm font-bold text-red-600">clientesInactivos</span>
-            </div>
+        {/* Card Clientes Inactivos */}
+        <div className="flex items-center gap-2 bg-card border border-border rounded-lg px-3 py-2 h-10">
+          <UserX className="h-4 w-4 text-red-600" />
+          <div className="flex items-center gap-1.5">
+            <span className="text-xs font-medium text-muted-foreground">Inactivos:</span>
+            <span className="text-sm font-bold text-red-600">clientesInactivos</span>
           </div>
+        </div>
 
-          {/* Botón Triguer Modal */}
-          <div className="hidden lg:block">
-            <Button size="lg" className="bg-black text-white hover:bg-black/90 h-10 cursor-pointer">
-              <span className="truncate">Nuevo Cliente</span>
-            </Button>
-          </div>
+        {/* Botón Triguer Modal */}
+        <div className="hidden lg:block">
+          <Button size="lg" className="bg-black text-white hover:bg-black/90 h-10 cursor-pointer">
+            <span className="truncate">Nuevo Cliente</span>
+          </Button>
+        </div>
       </div>
-  )
+    )
 
   return null
 

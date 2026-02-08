@@ -1,12 +1,12 @@
 "use client"
-import AuthContent from "@/components/layout/auth";
+import AuthContent from "@/components/features/auth/AuthView";
 
 export default function Home() {
 
 
   return (
     <main>
-      <AuthContent/>
+      <AuthContent />
     </main>
   );
 }

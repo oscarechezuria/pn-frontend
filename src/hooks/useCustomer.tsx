@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-table";
 import { Switch } from "@/components/ui/switch";
 import { Customer } from "@/app/types/Common";
-import { customerService } from "@/services/dashboard/customerService";
+import { customerService } from "@/services/customerService";
 
 const columnHelper = createColumnHelper<Customer>();
 

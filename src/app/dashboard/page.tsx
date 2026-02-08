@@ -1,40 +1,34 @@
 "use client";
 
-import React from "react";
-import FileUpload from "@/components/layout/dashboard/main/FileUpload";
-import AccountsReceivable from "@/components/layout/dashboard/main/AccountsReceivable";
-import { useInvoice } from "@/hooks/dashboard/useInvoice";
-import { filterInvoices, transformInvoices } from "@/lib/utils";
-import Skeleton_table from "@/components/ui/skeleton_table";
+import { useSearchParams } from "next/navigation";
+import CxcView from "@/components/features/cxc/views/CxcView";
+import CustomersView from "@/components/features/customers/CustomersView";
+import AnalyticsView from "@/components/features/analytics/AnalyticsView";
+import OrdersView from "@/components/features/orders/OrdersView";
+import SettingsView from "@/components/features/settings/SettingsView";
 
-export default function Page() {
-  const { data, loading, error, refetch } = useInvoice();
+export default function DashboardPage() {
+  const searchParams = useSearchParams();
+  const tab = searchParams.get("tab");
 
-  if (loading) {
-    return <Skeleton_table />;
-  }
+  const renderView = () => {
+    switch (tab) {
+      case "cxc":
+        return <CxcView />;
+      case "customers":
+        return <CustomersView />;
+      case "analytics":
+        return <AnalyticsView />;
+      case "orders":
+        return <OrdersView />;
+      case "settings":
+        return <SettingsView />;
+      default:
+        // Default view or redirect could happen here. 
+        // For now rendering CxcView as default if no tab provided
+        return <CxcView />;
+    }
+  };
 
-  if (error) {
-    return (
-      <div className="w-full h-screen flex items-center justify-center text-red-600 text-lg">
-        Error: {error}
-      </div>
-    );
-  }
-
-  const isEmpty = data.length === 0;
-
-  // Transformamos la data (añade days_expired a cada objeto)
-  const transformedData = !isEmpty ? transformInvoices(data) : [];
-
-  // Filtramos y ordenamos las facturas
-  const sortedData = !isEmpty ? filterInvoices(transformedData) : [];
-
-
-
-  return isEmpty ? (
-    <FileUpload refetch={refetch}/>
-  ) : (
-    <AccountsReceivable data={sortedData} refetch={refetch} />
-  );
+  return <>{renderView()}</>;
 }

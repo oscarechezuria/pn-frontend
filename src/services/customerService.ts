@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabaseClient";
+import { supabase } from "@/lib/supabase/supabaseClient";
 import { Customer } from "@/app/types/Common";
 
 export const customerService = {
@@ -18,7 +18,7 @@ export const customerService = {
     return data as Customer[];
   },
 
-  async updateStatus(customerId: number,isActive: boolean): Promise<void> {
+  async updateStatus(customerId: number, isActive: boolean): Promise<void> {
 
     const { error } = await supabase
       .from("customers")

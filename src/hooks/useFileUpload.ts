@@ -1,5 +1,5 @@
 import { useState, useRef, type DragEvent, type ChangeEvent } from "react"
-import { processFile } from "@/services/dashboard/fileUploadService"
+import { processFile } from "@/services/fileUploadService"
 import { AccountsReceivableWithCustomer } from "@/app/types/Common"
 import type { QueryObserverResult } from "@tanstack/react-query"
 
@@ -56,7 +56,7 @@ export function useFileUpload({ refetch }: FileUploadProps) {
       setIsLoading(true)
       const result = await processFile(file)
       if (result && result.length > 0) {
-       await refetch() 
+        await refetch()
       }
 
     } catch (error) {

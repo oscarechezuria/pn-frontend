@@ -2,12 +2,12 @@
 
 import "../globals.css"
 import { useState } from "react"
-import TopBarContent from "@/components/layout/dashboard/topBarContent"
-import SidebarContent from "@/components/layout/dashboard/sidebarContent"
-import Main from "@/components/layout/dashboard/main"
+import TopBarContent from "@/components/layout/header"
+import SidebarContent from "@/components/layout/sidebar"
+import Main from "@/components/layout/main/MainWrapper"
 import { usePathname } from "next/navigation"
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { TanstackqueryProvider } from "@/lib/tanstackqueryProvider"
+import { TanstackqueryProvider } from "@/lib/providers/tanstackqueryProvider"
 
 export default function DashboardLayout({
   children,
@@ -26,22 +26,21 @@ export default function DashboardLayout({
         pathname={pathname}
       />
 
-      {/* Main content */}
-      <div className="flex flex-col flex-1 min-w-0">
-        <TopBarContent
-          onMenuClick={() => setSidebarOpen(!sidebarOpen)}
-          pathname={pathname}
-        />
+      <TanstackqueryProvider>
+        {/* Main content */}
+        <div className="flex flex-col flex-1 min-w-0">
+          <TopBarContent
+            onMenuClick={() => setSidebarOpen(!sidebarOpen)}
+            pathname={pathname}
+          />
 
-        {/* Main area */}
-        <Main>
-            <TanstackqueryProvider>   
-              {children}
+          {/* Main area */}
+          <Main>
+            {children}
             <ReactQueryDevtools />
-            </TanstackqueryProvider>
-
-        </Main>
-      </div>
+          </Main>
+        </div>
+      </TanstackqueryProvider>
     </div>
   )
 }
