@@ -1,7 +1,7 @@
 "use client"
 
 import "../globals.css"
-import { useState } from "react"
+import { Suspense, useState } from "react"
 import TopBarContent from "@/components/layout/header"
 import SidebarContent from "@/components/layout/sidebar"
 import Main from "@/components/layout/main/MainWrapper"
@@ -20,11 +20,13 @@ export default function DashboardLayout({
   return (
     <div className="flex h-screen overflow-hidden lg:px-24" role="document">
       {/* Sidebar */}
-      <SidebarContent
-        sidebarOpen={sidebarOpen}
-        onSelect={() => setSidebarOpen(!sidebarOpen)}
-        pathname={pathname}
-      />
+      <Suspense fallback={<div className="hidden lg:block lg:w-64 bg-secondary" />}>
+        <SidebarContent
+          sidebarOpen={sidebarOpen}
+          onSelect={() => setSidebarOpen(!sidebarOpen)}
+          pathname={pathname}
+        />
+      </Suspense>
 
       <TanstackqueryProvider>
         {/* Main content */}
